@@ -1,0 +1,55 @@
+{
+  "name": "@erichardson-lee/config-ts",
+  "version": "0.1.0",
+  "packageManager": "yarn@3.1.1",
+  "types": "./dist/types/index.d.ts",
+  "license": "MIT",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erichardson-lee/config-ts"
+  },
+  "author": {
+    "name": "Edward Richardson-Lee",
+    "url": "https://github.com/erichardson-lee"
+  },
+  "exports": {
+    "require": "./dist/cjs/index.js"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "rimraf dist && yarn build:cjs & yarn build:types & echo \"Building Project\"",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier -c .",
+    "format:fix": "prettier -w .",
+    "test": "ava",
+    "publish": "yarn npm publish --access public --tag latest"
+  },
+  "devDependencies": {
+    "@tsconfig/esm": "^1.0.1",
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "ava": "^4.3.1",
+    "eslint": "latest",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.7.4"
+  },
+  "ava": {
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  }
+}
