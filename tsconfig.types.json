@@ -3,6 +3,7 @@
     "rootDir": "./src",
     "emitDeclarationOnly": true,
     "declaration": true,
+    "esModuleInterop": true,
     "outDir": "./dist/types"
   },
   "include": ["./src/**/*"],

@@ -31,6 +31,13 @@
     "test": "ava",
     "publish": "yarn npm publish --access public --tag latest"
   },
+  "dependencies": {
+    "@sinclair/typebox": "^0.24.28",
+    "ajv": "^8.11.0",
+    "ajv-formats": "^2.1.1",
+    "deepmerge": "^4.2.2",
+    "yaml": "^2.1.1"
+  },
   "devDependencies": {
     "@tsconfig/esm": "^1.0.1",
     "@tsconfig/node16": "^1.0.3",
