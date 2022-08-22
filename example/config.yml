@@ -1,0 +1,7 @@
+# yaml-language-server: $schema=./config.schema.json
+
+name: Edward
+
+favourite_foods:
+  - name: BLT
+  - name: Chips

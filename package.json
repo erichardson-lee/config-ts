@@ -5,6 +5,9 @@
   "types": "./dist/types/index.d.ts",
   "license": "MIT",
   "keywords": [],
+  "workspaces": [
+    "example"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/erichardson-lee/config-ts"

@@ -1,0 +1,22 @@
+{
+  "name": "example",
+  "scripts": {
+    "build": "rm -rf dist && tsc && yarn exportConfigSchema",
+    "exportConfigSchema": "node ./dist/config.js && prettier -w ./config.schema.json",
+    "exportConfigSchema:dev": "ts-node-dev --respawn --watch ./src/config.ts ./src/config.ts",
+    "start": "node ./dist/main.js",
+    "start:dev": "ts-node-dev --respawn --watch ./config.yml ./src/main.ts",
+    "dev": "yarn start:dev & yarn exportConfigSchema:dev & echo \"Starting Dev\""
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/node": "^18.7.9",
+    "prettier": "^2.7.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@erichardson-lee/config-ts": "workspace:^",
+    "@sinclair/typebox": "^0.24.28"
+  }
+}

@@ -57,12 +57,12 @@ const validateConfig = <ConfigSchema extends TSchema>(
 type ConfigPaths = readonly string[];
 
 export const defaultConfigPaths: ConfigPaths = Object.freeze([
-  join(process.cwd(), `./config.yml`),
-  join(process.cwd(), `./config.yaml`),
+  join(process.cwd(), "./config.yml"),
+  join(process.cwd(), "./config.yaml"),
   join(process.cwd(), `./config/${process.env.NODE_ENV ?? "development"}.yml`),
   join(process.cwd(), `./config/${process.env.NODE_ENV ?? "development"}.yaml`),
-  join(process.cwd(), `./config/default.yml`),
-  join(process.cwd(), `./config/default.yaml`),
+  join(process.cwd(), "./config/default.yml"),
+  join(process.cwd(), "./config/default.yaml"),
 ]);
 
 export const loadConfigFromFiles = async <ConfigSchema extends TSchema>(
@@ -96,16 +96,15 @@ export const loadConfigFromFiles = async <ConfigSchema extends TSchema>(
     if (e instanceof ValidationError) {
       errorLogger("Error Validating Config");
       e.errors.forEach((error) => {
-        if (!error.propertyName || !error.data)
-          errorLogger(JSON.stringify(error, undefined, 2));
-        else
+        if (error.propertyName && error.data)
           errorLogger(
             `Property ${error.propertyName} value ${error.data} invalid.`
           );
+        else if (error.message)
+          errorLogger(`${error.instancePath} ${error.message}`);
+        else errorLogger(JSON.stringify(error, undefined, 2));
       });
 
-      errorLogger("Loaded Config from following files:");
-      configPaths.forEach((path) => errorLogger(path));
       process.exit(1);
     }
     throw e;

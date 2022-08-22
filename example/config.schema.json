@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "The name to greet",
+      "type": "string"
+    },
+    "favourite_foods": {
+      "description": "A List of favourite foods",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "description": "name of the food",
+            "type": "string"
+          }
+        },
+        "required": ["name"]
+      }
+    }
+  },
+  "required": ["name", "favourite_foods"]
+}
