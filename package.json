@@ -1,13 +1,11 @@
 {
   "name": "@erichardson-lee/config-ts",
+  "description": "A strongly typed configuration library in typescript",
   "version": "0.1.0",
   "packageManager": "yarn@3.1.1",
   "types": "./dist/types/index.d.ts",
   "license": "MIT",
   "keywords": [],
-  "workspaces": [
-    "example"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/erichardson-lee/config-ts"
@@ -19,6 +17,9 @@
   "exports": {
     "require": "./dist/cjs/index.js"
   },
+  "workspaces": [
+    "example"
+  ],
   "files": [
     "dist/**/*",
     "package.json"
