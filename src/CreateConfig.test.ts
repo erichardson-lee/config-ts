@@ -1,43 +1,46 @@
 import { Type } from "@sinclair/typebox";
 import { CreateConfig } from "./CreateConfig";
+import test from "ava";
 
-/**
- * Assert Same Type
- */
-const AST = <Type>(a: Type) => a;
+test("CreateConfig Test", async (t) => {
+  /**
+   * Assert Same Type (Compile time test)
+   */
+  const AST = <Type>(a: Type) => a;
 
-if (require.main === module) test();
-
-async function test() {
   /**
    * Config made from a single config schema
    */
-  const flatConfig = await CreateConfig(
-    Type.Intersect([
+  const flatConfig = await CreateConfig({
+    schema: Type.Intersect([
       Type.Object({
         id: Type.String(),
       }),
     ]),
-    {
+    value: {
       id: "test",
-    }
-  );
+    },
+  });
 
-  AST<string>(flatConfig.get("id"));
+  t.is(AST<string>(flatConfig.get("id")), "test");
 
   /**
    * Composite config composed from multiple configuration schemas
    */
-  const compositeConfig = await CreateConfig(
-    Type.Intersect([
+  const compositeConfig = await CreateConfig({
+    schema: Type.Intersect([
       flatConfig.getSchema(),
       Type.Object({
         test: Type.Number(),
       }),
-    ])
-  );
+    ]),
+    value: {
+      id: "test",
+      test: 123,
+    },
+  });
 
-  AST<string>(compositeConfig.get("id"));
-  AST<number>(compositeConfig.get("test"));
-  AST<unknown>(compositeConfig.get("foo"));
-}
+  t.is(AST<string>(compositeConfig.get("id")), "test");
+  t.is(AST<number>(compositeConfig.get("test")), 123);
+  t.is(AST<unknown>(compositeConfig.get("foo")), undefined);
+});

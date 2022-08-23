@@ -3,10 +3,9 @@ import merge from "deepmerge";
 
 import { readFile } from "fs/promises";
 import { Static, TSchema } from "@sinclair/typebox";
-import Ajv, { ErrorObject } from "ajv";
-import addFormats from "ajv-formats";
 import { defaultLogger } from "./ErrorLogger";
 import { join } from "path";
+import { validateConfig, ValidationError } from "./ValidateConfig";
 
 const readConfig = async <Type extends object = object>(
   path: string
@@ -20,34 +19,6 @@ const readConfig = async <Type extends object = object>(
   } catch {
     return undefined;
   }
-};
-
-export class ValidationError extends Error {
-  constructor(
-    public readonly errors: ErrorObject<string, Record<string, unknown>>[]
-  ) {
-    super(JSON.stringify(errors));
-  }
-}
-
-const validateConfig = <ConfigSchema extends TSchema>(
-  schema: ConfigSchema,
-  value: unknown
-): Static<ConfigSchema> => {
-  const ajv = new Ajv({
-    allErrors: true,
-    validateFormats: true,
-    verbose: true,
-  });
-  addFormats(ajv);
-
-  const validate = ajv.compile(schema);
-
-  const valid = validate(value);
-
-  if (!valid) throw new ValidationError(validate.errors ?? []);
-
-  return value;
 };
 
 /**
